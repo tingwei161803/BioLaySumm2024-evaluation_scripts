@@ -141,7 +141,7 @@ scores = evaluate(
   predictions, golds
   
 )
-
+write_scores(scores, os.path.join(output_dir, 'scores.txt'))
 # # Calculate + write eLife scores
 # elife_scores = evaluate(
 #   os.path.join(submit_dir, 'elife.txt'), 
