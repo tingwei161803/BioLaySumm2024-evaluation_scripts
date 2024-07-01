@@ -113,25 +113,53 @@ output_dir = "./"
 
 
 # Function to read the 'prediction' column from a CSV file
-def read_gold_column(file_path):
-    golds = []
-    with open(file_path, mode='r', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            golds.append(row['adaptation1'])
-    return golds
+# def read_gold_column(file_path):
+#     golds = []
+#     with open(file_path, mode='r', newline='') as csvfile:
+#         reader = csv.DictReader(csvfile)
+#         for row in reader:
+#             golds.append(row['adaptation1'])
+#     return golds
   
-def read_prediction_column(file_path):
-    predictions = []
+# def read_prediction_column(file_path):
+#     predictions = []
+#     with open(file_path, mode='r', newline='') as csvfile:
+#         reader = csv.DictReader(csvfile)
+#         for row in reader:
+#             predictions.append(row['BART_7_Output'])
+#     return predictions
+def read_adaptation1_and_outputs(file_path):
+    prediction1s = []
+    adaptation1s = []
     with open(file_path, mode='r', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            predictions.append(row['BART_7_Output'])
-    return predictions
+            prediction1s.append(row['BART_7_Output'])
+            adaptation1s.append(row['adaptation1'])
+    return prediction1s, adaptation1s
+
+def read_filtered_adaptation2_and_outputs(file_path):
+    adaptation2s = []
+    prediction2s = []
+    with open(file_path, mode='r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            if row['adaptation2']:
+                adaptation2s.append(row['adaptation2'])
+                prediction2s.append(row['BART_7_Output'])
+    return prediction2s, adaptation2s
+
+
+
+
 # Example usage
 file_path = 'test_results_bart-base_S7.csv'  # Replace with the path to your CSV file
-golds = read_gold_column(file_path)
-predictions = read_prediction_column(file_path)
+prediction1s, adaptation1s = read_adaptation1_and_outputs(file_path)
+prediction2s, adaptation2s = read_filtered_adaptation2_and_outputs(file_path)
+
+
+golds = adaptation1s + adaptation2s
+predictions = prediction1s + prediction2s
 # print(predictions)
 
 
