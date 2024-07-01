@@ -5,9 +5,9 @@ from rouge_score import rouge_scorer
 from bert_score import score
 import nltk 
 from alignscore import AlignScore
-# from lens.lens_score import LENS
+from lens.lens_score import LENS
 import torch
-# from summac.model_summac import SummaCConv
+from summac.model_summac import SummaCConv
 import csv
 
 nltk.download('punkt')
