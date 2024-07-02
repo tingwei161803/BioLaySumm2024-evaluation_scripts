@@ -47,7 +47,7 @@ def calc_lens(preds, refs, docs):
 
 def calc_alignscore(preds, docs):
   alignscorer = AlignScore(model='roberta-base', batch_size=16, device='cuda:0', \
-                           ckpt_path='./models/AlignScore/AlignScore-base.ckpt', evaluation_mode='nli_sp')
+                           ckpt_path='./models/AlignScore/AlignScore-large.ckpt', evaluation_mode='nli_sp')
   return np.mean(alignscorer.score(contexts=docs, claims=preds))
 
 def cal_summac(preds, docs):
